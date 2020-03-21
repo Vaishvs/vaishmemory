@@ -1,0 +1,10 @@
+package com.zensar.emdb.dao;
+
+public interface daoInterface<T,P> {
+				T insert(P obj);
+				T delete(P obj);
+				T modify(P obj);
+				T displayAll(P obj);
+				T displayOne(P obj);
+				T showMySalary(P obj);
+}

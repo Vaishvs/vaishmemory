@@ -1,0 +1,45 @@
+package com.zensar.emdb.bean;
+import java.util.Date;
+
+public class UpdateLog {
+   int modificationId;
+   Date dateOfModification;
+   String detailsOfModification;
+   public UpdateLog() {}
+   
+   public UpdateLog(int modificationId, Date dateOfModification, String detailsOfModification) {
+		super();
+		this.modificationId = modificationId;
+		this.dateOfModification = dateOfModification;
+		this.detailsOfModification = detailsOfModification;
+	}
+   
+   public int getModificationId() {
+	   	return modificationId;
+   	}
+   public void setModificationId(int modificationId) {
+		this.modificationId = modificationId;
+   	}
+   public Date getDateOfModification() {
+	   	return dateOfModification;
+   	}
+   public void setDateOfModification(Date dateOfModification) {
+	   	this.dateOfModification = dateOfModification;
+   	}
+   public String getDetailsOfModification() {
+	   	return detailsOfModification;
+   	}
+   public void setDetailsOfModification(String detailsOfModification) {
+	   	this.detailsOfModification = detailsOfModification;
+   	}
+
+   
+   @Override
+   public String toString() {
+		return "UpdateLog [modificationId=" + modificationId + ", dateOfModification=" + dateOfModification
+			+ ", detailsOfModification=" + detailsOfModification + "]";
+	}
+
+
+  
+}

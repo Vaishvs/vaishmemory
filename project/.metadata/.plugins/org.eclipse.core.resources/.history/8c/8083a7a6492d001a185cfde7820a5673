@@ -1,0 +1,73 @@
+package com.zensar.emdb.main;
+import java.util.Scanner;
+import com.zensar.emdb.exception.AgeException1;
+import com.zensar.emdb.exception.BasicPayException;
+import com.zensar.emdb.exception.DesignationException;
+import com.zensar.emdb.exception.EcodeException;
+import com.zensar.emdb.exception.EnameException;
+
+
+
+public class allFunctions {
+	
+		int choice,eCode,age;
+	 	String designation,eName;
+	 	double basicPay;	
+	 	Scanner sc = new Scanner(System.in);
+	    try {
+		 System.out.println("Enter ID of Employee");
+		 eCode=sc.nextInt();
+		 
+		 int num=Integer.toString(eCode).length();
+		 if(num>4 || num<4) 
+		 {
+			 throw new EcodeException();
+		 }
+		 
+		 System.out.println("Enter Name of Employee");
+		 eName=sc.next();
+		 
+		 if(eName.length() > 20) {
+			 throw new EnameException();
+		 }
+		 
+		 char arr[] = eName.toCharArray();
+		 for(int lc= 0; lc<arr.length; lc++ ) {
+			 if( arr[lc] >= 97 && arr[lc] <= 122 ) 
+				 throw new EnameException();
+		 }
+		  
+		System.out.println("Enter Designation of Employee");
+		designation=sc.next();
+		
+	    if(!designation.contains("SE")||!designation.contains("SSE")
+			 ||!designation.contains("SS")||!designation.contains("SSS")) {
+	    	throw new DesignationException();
+		 }
+	
+	  System.out.println("Enter Age of Employee");
+	  age=sc.nextInt();
+	  if(age<18 || age>80) {throw new AgeException1();}
+	 
+	 System.out.println("Enter Basic Pay of Employee");
+	 basicPay=sc.nextDouble();
+	 if(basicPay<6000) {throw new BasicPayException();}
+	 }
+ 
+	 catch(EnameException e1) {
+		 System.out.println("Employee name can be of maximum 20 characters.");
+	 }
+	 catch(EcodeException e2) {
+		 System.out.println("Employee code must be 4 digit");
+	 }
+	 catch(DesignationException e3) {
+		 System.out.println("Employee designation should be valid");
+	 }
+	 catch(AgeException1 e4) {
+		 System.out.println("Employee age must in between 18 and 80");
+	 }
+	 catch(BasicPayException e5) {
+		 System.out.println("Employee salary must be greater than 6000/- ");
+	 }
+}
+

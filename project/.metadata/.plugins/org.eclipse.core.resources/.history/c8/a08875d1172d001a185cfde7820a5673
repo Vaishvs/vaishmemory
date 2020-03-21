@@ -1,0 +1,5 @@
+package com.zensar.emdb.connection;
+
+public class DBUtil {
+
+}

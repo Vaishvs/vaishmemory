@@ -1,0 +1,32 @@
+package com.zensar.emdb.exception;
+
+class Exception1{
+	/*   public static void main(String args[]){
+	  try{
+	       throw new MyException(2);
+	       // throw is used to create a new exception and throw it.
+	  }
+	 catch(MyException e){
+	    System.out.println(e) ;
+	 }
+	}*/
+	}
+	class EcodeException extends Exception{
+
+	  }
+	
+	class EnameException extends Exception{
+		  
+	  }
+	
+	class DesignationException extends Exception{
+		  
+	  }
+	
+	class AgeException extends Exception{
+		  
+	  }
+	
+	class BasicPayException extends Exception{
+		  
+	  }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.zensar.emdb.connection.DBUtil"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
+<fullyQualifiedTypeName name="com.zensar.emdb.dao.daoClass"/>
+<fullyQualifiedTypeName name="com.zensar.emdb.dao.DaoInterface2"/>
+<fullyQualifiedTypeName name="com.zensar.emdb.dao.DaoClass2"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="com.zensar.emdb.main.allFunctions"/>
+</qualifiedTypeNameHistroy>

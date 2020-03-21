@@ -1,0 +1,173 @@
+package com.zensar.emdb.dao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import com.zensar.emdb.bean.Employee;
+import com.zensar.emdb.connection.DBUtil;
+
+public class daoClass implements daoInterface<Boolean, Employee>{
+		//connection to oracle
+			Connection c =DBUtil.getConnection();
+			String query;
+			boolean status = false;
+			int eCode;
+			String eName;
+			String designation;
+			int age ;
+			double basicPay;
+			double DA;
+			double HRA;
+			double salary;
+			
+			//insert function 
+			public Boolean insert(Employee obj) {
+				
+				status = false;
+				//Access variable
+				eCode = obj.geteCode();
+				eName = obj.geteName();
+				designation = obj.getDesignation();
+				age = obj.getAge(); 
+				basicPay = obj.getBasicPay();
+					
+					  
+				try {
+					query = "insert into sample values(?,?,?,?,?)";
+					PreparedStatement pst = c.prepareStatement(query);
+					pst.setInt(1, eCode);		
+					pst.setString(2, eName);
+					pst.setString(3, designation);
+					pst.setInt(4, age);
+					pst.setDouble(5, basicPay);
+					int count= pst.executeUpdate();
+					
+					DA = basicPay* 0.2;
+					HRA = basicPay * 0.1;
+					salary = basicPay + DA + HRA;
+					query = "insert into EmployeeSalary values(?,?,?,?,?,?,?)";
+					pst.setInt(1, eCode);
+					pst.setString(2, eName);
+					pst.setString(3, designation);
+					pst.setDouble(5, basicPay);
+					count = pst.executeUpdate();
+					
+					if(count > 0){
+							//if inserted succuessfully then set status 
+							status= true;
+					}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					return status;
+					
+				} //end of insert function
+			
+
+			//function delete 
+			@Override
+			public Boolean delete(Employee obj) {
+				
+			    eCode = obj.geteCode();
+				try {
+					PreparedStatement ps=c.prepareStatement("delete from employee where Ecode= '"+eCode+"' ");
+					int count=ps.executeUpdate();
+					
+					if(count>0) {
+						status=true;
+					}else {
+						status=false;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return status;
+				
+			} //end of function delete
+			
+			
+			//function modify
+			
+			public Boolean modifySalary(Employee obj) {
+				  boolean status = false;
+				  eCode = obj.geteCode();
+				  basicPay=obj.getBasicPay();
+				
+				try {
+				    PreparedStatement pst = c.prepareStatement("update Employee set basicPay=? where eCode=?");
+					pst.setDouble(5, basicPay);		
+					pst.setInt(1, eCode);
+					int count= pst.executeUpdate();
+					
+					if(count > 0){
+						status= true;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return status;
+			} //modify salary end
+			
+		  //modify desgination function	
+		  public Boolean modifyDesignation(Employee obj) {
+					  boolean status = false;
+					  eCode =  obj.geteCode();
+					  designation=obj.getDesignation();
+					
+					try {
+					    PreparedStatement pst = c.prepareStatement("update Employee set designation=? where eCode=?");
+						pst.setString(3,designation );		
+						pst.setInt(1, eCode);
+						int count= pst.executeUpdate();
+						
+						if(count > 0){
+							status= true;
+							
+						}
+					}catch (SQLException e) {
+						
+						e.printStackTrace();
+					}
+					return status;
+				}//end modify designation
+		 
+		  //display all function
+		  public ArrayList<Employee> DisplayAll() {
+			  
+			  	ArrayList<Employee> arr = new ArrayList<Employee>();
+				try {
+					Statement st=c.createStatement();
+					ResultSet rs=st.executeQuery("select * from employee");
+					
+					while(rs.next()) {
+						arr.add(new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getDouble(5)));
+					}
+				} catch (SQLException e) {
+						e.printStackTrace();
+				}
+				return arr;
+			}//end of display all
+		  
+		  
+		 //displayall function
+		  public Employee DisplayOne(Employee obj){
+				ResultSet rs;
+				Employee emp = null;
+				ArrayList<Employee> arr = new ArrayList<Employee>();
+				try {
+					
+					Statement st=c.createStatement();
+					rs = st.executeQuery("select * from employee where Ecode="+obj.geteCode());
+			        emp = new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getDouble(5));
+					  
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return emp;
+				
+			}
+}

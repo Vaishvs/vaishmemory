@@ -1,0 +1,44 @@
+package com.zensar.emdb.dao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.zensar.emdb.connection.DBUtil;
+
+public class daoClass implements daoInterface<Boolean, Employee>{
+			Connection c =DBUtil.getConnection();
+				
+			//insert function 
+			public Boolean insert(Employee obj) {
+				
+				boolean status = false;
+				//Access variable
+				int eCode = obj.geteCode();
+				String eName = obj.geteName();
+				String designation = obj.getDesignation();
+				int age = obj.getAge(); 
+				double basicPay = obj.getBasicPay();
+					
+					  
+				try {
+					PreparedStatement pst = c.prepareStatement("insert into sample values(?,?,?,?,?)");
+					pst.setInt(1, eCode);		
+					pst.setString(2, eName);
+					pst.setString(3, designation);
+					pst.setInt(4, age);
+					pst.setDouble(5, basicPay);
+					int count= pst.executeUpdate();
+					
+					if(count > 0){
+							//if inserted succuessfully then set status 
+							status= true;
+					}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					return status;
+					
+				} //end of insert function
+			
+			
+}

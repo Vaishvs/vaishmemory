@@ -1,0 +1,89 @@
+package com.zensar.emdb.main;
+import java.util.Scanner;
+import com.zensar.emdb.exception.AgeException1;
+import com.zensar.emdb.exception.BasicPayException;
+import com.zensar.emdb.exception.DesignationException;
+import com.zensar.emdb.exception.EcodeException;
+import com.zensar.emdb.exception.EnameException;
+
+public class MainTest{
+	
+	public static void main(String[] args) {
+			
+			int choice,eCode,bage;
+			String designation,eName;
+			double basicPay;
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Menu: ");
+			System.out.println("1.HR ");
+			System.out.println("2.Employee ");
+			System.out.println("Enter your choice ");
+			int ch;
+			ch = sc.nextInt();
+			
+	         switch(ch) {
+	         case 1:
+	         {
+	        	 
+	        	System.out.println("Menu: ");
+	     		System.out.println("1.Insert new Employee ");
+	     		System.out.println("2.Delete Existing Employee ");
+	     		System.out.println("3.Modify Salary of Employee ");
+	     		System.out.println("4.Modify Designation of Employee ");
+	     		System.out.println("5.Display ALL ");
+	     		System.out.println("Enter your choice ");
+	    		choice=sc.nextInt();
+	        	switch(choice) {
+	        	 case 1:
+	        		 	
+	        	 case 2:
+	    
+	        		  System.out.println("Enter ID of Employee");
+	         		  eCode=sc.nextInt();
+	         		  
+	        	  case 3:
+	        		  System.out.println("Enter ID of Employee");
+	         		  eCode=sc.nextInt();
+	         		  System.out.println("Enter new Basic Pay of Employee");
+	        		  basicPay=sc.nextDouble();
+	        		  
+	        	  case 4:
+	        		  System.out.println("Enter ID of Employee");
+	         		  eCode=sc.nextInt();
+	         		  System.out.println("Enter new Designation of Employee");
+	        		  designation=sc.next();
+	        		  
+	        	  case 5:
+	        		  System.out.println("Data of all employees are: ");
+	        		  
+	        	 }
+		}
+
+	        	
+	         
+	       case 2:
+	           {
+	        	   System.out.println("Menu: ");
+	        	   System.out.println("1.Display my Details ");
+	        	   System.out.println("2.Display my Salary slip");
+	        	   System.out.println("Enter your choice: ");
+	       		   int ch2;
+	       		   ch2=sc.nextInt();
+	    	      switch(ch2) {
+	    	      case 1:
+	    	    	  System.out.println("Enter ID of Employee");
+	         		  eCode=sc.nextInt();
+	         		  
+	    	      case 2:
+	    	    	  System.out.println("Enter ID of Employee");
+	         		  eCode=sc.nextInt();
+	    	      }
+	           }
+	         }
+	}
+}
+
+
+
+
+

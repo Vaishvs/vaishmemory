@@ -1,0 +1,117 @@
+package com.zensar.emdb.dao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import com.zensar.emdb.bean.Employee;
+import com.zensar.emdb.connection.DBUtil;
+
+public class daoClass implements daoInterface<Boolean, Employee>{
+		//connection to oracle
+			Connection c =DBUtil.getConnection();
+			String query;
+			boolean status = false;
+			int eCode;
+			String eName;
+			String designation;
+			int age ;
+			double basicPay;
+			double DA;
+			double HRA;
+			double salary;
+			
+			//insert function 
+			public Boolean insert(Employee obj) {
+				
+				status = false;
+				//Access variable
+				eCode = obj.geteCode();
+				eName = obj.geteName();
+				designation = obj.getDesignation();
+				age = obj.getAge(); 
+				basicPay = obj.getBasicPay();
+					
+					  
+				try {
+					query = "insert into sample values(?,?,?,?,?)";
+					PreparedStatement pst = c.prepareStatement(query);
+					pst.setInt(1, eCode);		
+					pst.setString(2, eName);
+					pst.setString(3, designation);
+					pst.setInt(4, age);
+					pst.setDouble(5, basicPay);
+					int count= pst.executeUpdate();
+					
+					DA = basicPay* 0.2;
+					HRA = basicPay * 0.1;
+					salary = basicPay + DA + HRA;
+					query = "insert into EmployeeSalary values(?,?,?,?,?,?,?)";
+					pst.setInt(1, eCode);
+					pst.setString(2, eName);
+					pst.setString(3, designation);
+					pst.setDouble(5, basicPay);
+					count = pst.executeUpdate();
+					
+					if(count > 0){
+							//if inserted succuessfully then set status 
+							status= true;
+					}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					return status;
+					
+				} //end of insert function
+			
+			//showMySalary function
+			public Boolean showMySalary(Employee obj) {
+				status = false;
+				eCode = obj.geteCode();
+				
+				Statement stmt;
+				try {
+					stmt = c.createStatement();
+					query = "select Ecode, Ename,Designation ,Basic_pay, DA , HRA, salary from EmployeeSalary where Ecode = "+eCode; 
+				
+					ResultSet rst;
+					rst = stmt.executeQuery(query);
+					while(rst.next()) {
+						status = true;
+						eName = rst.getString(2);
+						designation = rst.getString(3);
+						basicPay = rst.getDouble(4);
+						DA = rst.getDouble(5);
+						HRA = rst.getDouble(6);
+						salary = rst.getDouble(7);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return status;
+			}//end of function
+			
+			//function delete 
+			@Override
+			public Boolean delete(Employee obj) {
+				
+			    eCode = obj.geteCode();
+				try {
+					PreparedStatement ps=c.prepareStatement("delete from employee where Ecode= '"+eCode+"' ");
+					int count=ps.executeUpdate();
+					
+					if(count>0) {
+						status=true;
+					}else {
+						status=false;
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return status;
+				
+			} //end of function 
+			
+			
+}

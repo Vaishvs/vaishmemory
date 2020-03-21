@@ -1,0 +1,5 @@
+package com.zensar.emdb.dao;
+
+public interface DaoInterface2 {
+
+}
